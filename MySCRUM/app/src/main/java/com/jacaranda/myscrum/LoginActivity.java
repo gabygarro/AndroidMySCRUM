@@ -47,8 +47,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
      * A dummy authentication store containing known user names and passwords.
      * TODO: remove after connecting to a real authentication system.
      */
+    public enum Role {
+        SYSADMIN, PRODUCTOWNER, SCRUMMASTER, DEVELOPER
+    }
     private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "foo@example.com:hello", "bar@example.com:world"
+            "sysadmin@icost.com:sysadmin:SYSADMIN", "productowner@icost.com:productowner:PRODUCTOWNER",
+            "scrummaster@icost.com:scrummaster:SCRUMMASTER", "developer@icost.com:developer:DEVELOPER"
     };
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -185,6 +189,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
+
+            /* TODO: creo que aquí es donde se puede validar el rol */
+
             mAuthTask.execute((Void) null);
         }
     }
