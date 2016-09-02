@@ -11,4 +11,5 @@
     <string name="error_incorrect_password">Contraseña incorrecta</string>
     <string name="error_field_required">Campo requerido</string>
     <string name="permission_rationale">"Se necesitan permisos."</string>
+    <string name="title_activity_sys_admin">Proyectos</string>
 </resources>

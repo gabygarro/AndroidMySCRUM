@@ -3,6 +3,7 @@ package com.jacaranda.myscrum;
 import android.animation.Animator;
 import android.animation.AnimatorListenerAdapter;
 import android.annotation.TargetApi;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
@@ -19,6 +20,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -341,9 +343,9 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-                if(accountType == "SYSADMIN") {
-                    /*Intent myIntent = new Intent(LoginActivity.this,MyMainActivity.class);
-                    LoginActivity.this.startActivity(myIntent);*/
+                if (accountType.equals("SYSADMIN")) {
+                    Intent myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
+                    LoginActivity.this.startActivity(myIntent);
                 }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
