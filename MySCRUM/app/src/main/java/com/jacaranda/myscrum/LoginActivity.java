@@ -31,9 +31,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.ListIterator;
 
 import static android.Manifest.permission.READ_CONTACTS;
+
+//import com.jacaranda.myscrum.data.DatabaseManager;
+//import com.jacaranda.myscrum.data.DBHelper;
+import com.jacaranda.myscrum.data.model.Usuario;
+import com.jacaranda.myscrum.data.repo.UsuarioRepo;
 
 /**
  * A login screen that offers login via email/password.
@@ -68,6 +75,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
+    // DB References
+    //private UsuarioRepo usuarioRepo;
+
+    private void insertSampleData(){
+        UsuarioRepo usuarioRepo = new UsuarioRepo();
+        usuarioRepo.delete();
+
+        Usuario usuario = new Usuario();
+        usuario.setCorreo("sysadmin@icost.com");
+        usuario.setContrasena("sysadmin");
+        usuario.setRol("SYSADMIN");
+        Log.d("db","Inserted usuario = " + usuario.getCorreo() + ", rol = " + usuario.getRol()
+                + ", id = " + usuarioRepo.insert(usuario));
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -98,6 +120,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         mLoginFormView = findViewById(R.id.login_form);
         mProgressView = findViewById(R.id.login_progress);
+
+        insertSampleData();
     }
 
     private void populateAutoComplete() {
@@ -198,6 +222,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             mAuthTask.execute((Void) null);
         }
     }
+
     private boolean isEmailValid(String email) {
         //TODO: Replace this with your own logic
         return email.contains("@");
@@ -322,14 +347,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             } catch (InterruptedException e) {
                 return false;
             }
-
-            for (String credential : DUMMY_CREDENTIALS) {
+            // Original code
+            /*for (String credential : DUMMY_CREDENTIALS) {
                 String[] pieces = credential.split(":");
                 if (pieces[0].equals(mEmail)) {
                     accountType = pieces[2];
                     // Account exists, return true if the password matches.
                     return pieces[1].equals(mPassword);
                 }
+            }*/
+            // Gaby - final authentication code
+            UsuarioRepo usuarioRepo = new UsuarioRepo();
+            Usuario usuario = usuarioRepo.getUsuario(mEmail, mPassword);
+            if (usuario != null) {
+                accountType = usuario.getRol();
+                return true;
             }
 
             // TODO: register the new account here.
@@ -343,6 +375,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
+                Log.d("db", "Login succesful for " + mEmail);
                 if (accountType.equals("SYSADMIN")) {
                     Intent myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
                     LoginActivity.this.startActivity(myIntent);
