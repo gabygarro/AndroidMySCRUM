@@ -39,33 +39,22 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 //import com.jacaranda.myscrum.data.DatabaseManager;
 //import com.jacaranda.myscrum.data.DBHelper;
+import com.jacaranda.myscrum.data.model.Proyecto;
 import com.jacaranda.myscrum.data.model.Usuario;
+import com.jacaranda.myscrum.data.model.UsuarioXProyecto;
+import com.jacaranda.myscrum.data.repo.ProyectoRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioRepo;
+import com.jacaranda.myscrum.data.repo.UsuarioXProyectoRepo;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<Cursor> {
 
-    /**
-     * Id to identity READ_CONTACTS permission request.
-     */
+    // Id to identity READ_CONTACTS permission request.
     private static final int REQUEST_READ_CONTACTS = 0;
 
-    /**
-     * A dummy authentication store containing known user names and passwords.
-     * TODO: remove after connecting to a real authentication system.
-     */
-    public enum Role {
-        SYSADMIN, PRODUCTOWNER, SCRUMMASTER, DEVELOPER
-    }
-    private static final String[] DUMMY_CREDENTIALS = new String[]{
-            "sysadmin@icost.com:sysadmin:SYSADMIN", "productowner@icost.com:productowner:PRODUCTOWNER",
-            "scrummaster@icost.com:scrummaster:SCRUMMASTER", "developer@icost.com:developer:DEVELOPER"
-    };
-    /**
-     * Keep track of the login task to ensure we can cancel it if requested.
-     */
+    // Keep track of the login task to ensure we can cancel it if requested.
     private UserLoginTask mAuthTask = null;
 
     // UI references.
@@ -75,23 +64,47 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
     private View mProgressView;
     private View mLoginFormView;
 
-    // DB References
-    //private UsuarioRepo usuarioRepo;
-
+    // Sample data for easy testing
     private void insertSampleData(){
-        UsuarioRepo usuarioRepo = new UsuarioRepo();
-        usuarioRepo.delete();
 
-        Usuario usuario = new Usuario();
-        usuario.setCorreo("sysadmin@icost.com");
-        usuario.setContrasena("sysadmin");
-        usuario.setRol("SYSADMIN");
-        Log.d("db","Inserted usuario = " + usuario.getCorreo() + ", rol = " + usuario.getRol()
-                + ", id = " + usuarioRepo.insert(usuario));
+        // Insertar usuarios
+        UsuarioRepo usuarioRepo = new UsuarioRepo();
+        usuarioRepo.delete(); // Borrar los datos que habían antes
+        String[] DUMMY_CREDENTIALS = new String[]{
+                "sysadmin@icost.com:sysadmin:SYSADMIN", "productowner@icost.com:productowner:PRODUCTOWNER",
+                "scrummaster@icost.com:scrummaster:SCRUMMASTER", "developer@icost.com:developer:DEVELOPER"
+        };
+        for (String credential : DUMMY_CREDENTIALS) {
+            String[] pieces = credential.split(":");
+            Usuario usuario = new Usuario();
+            usuario.setCorreo(pieces[0]);
+            usuario.setContrasena(pieces[1]);
+            usuario.setRol(pieces[2]);
+            Log.d("db", "Insert user = " + usuario.getCorreo() + ", rol = " + usuario.getRol()
+                    + ", id = " + usuarioRepo.insert(usuario));
+        }
+
+        //Insertar proyectos y personas asociadas
+        ProyectoRepo proyectoRepo = new ProyectoRepo();
+        proyectoRepo.delete();
+        Proyecto proyecto = new Proyecto();
+        proyecto.setNombre("Fry Defender");
+        proyecto.setDescripcion("McDonald's");
+        proyecto.setDuracionSprint(3);
+        int idProyecto = proyectoRepo.insert(proyecto);
+        Log.d("db", "Insert proyecto " + idProyecto);
+
+        UsuarioXProyectoRepo usuarioXProyectoRepo = new UsuarioXProyectoRepo();
+        usuarioXProyectoRepo.delete();
+        UsuarioXProyecto usuarioXProyecto = new UsuarioXProyecto();
+        usuarioXProyecto.setProyecto_idProyecto(idProyecto);
+        usuarioXProyecto.setUsuario_idUsuario(2);
+        usuarioXProyectoRepo.insert(usuarioXProyecto);
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        Log.d("main", "LoginActivity.onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         // Set up the login form.
@@ -375,10 +388,17 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
             if (success) {
                 finish();
-                Log.d("db", "Login succesful for " + mEmail);
+                Log.d("main", "Login succesful for " + mEmail);
+                Intent myIntent = new Intent();
                 if (accountType.equals("SYSADMIN")) {
-                    Intent myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
-                    LoginActivity.this.startActivity(myIntent);
+                    myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
+                }
+                /** Rest of if clauses here**/
+                if (myIntent != null) {
+                    Log.d("main", "Before startActivity");
+                    myIntent.putExtra("EMAIL", mEmail);
+                    myIntent.putExtra("ACCOUNTTYPE", accountType);
+                    startActivity(myIntent);
                 }
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));
