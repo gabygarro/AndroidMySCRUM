@@ -59,8 +59,7 @@ public class ProyectoRepo {
         String selectQuery = "";
         if (accountType.equals("SYSADMIN")) {
             selectQuery = "SELECT * FROM " + Proyecto.TABLE;
-        }
-        else {
+        } else {
             /*selectQuery = "SELECT " + Proyecto.KEY_idProyecto + ", " + Proyecto.KEY_nombre + ", "
                     + ", " + Proyecto.KEY_descripcion + ", " + Proyecto.KEY_duracionSprint
                     + " FROM " + Proyecto.TABLE + ", " + Usuario.TABLE + ", " + UsuarioXProyecto.TABLE
@@ -74,15 +73,22 @@ public class ProyectoRepo {
         }
 
         Log.d("db", selectQuery);
-        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(selectQuery, null);
+        } catch (Exception e) {
+            Log.d("main", e.toString());
+        }
+
         //Loop through cursor
-        if (cursor.moveToFirst()){
-            do{
+        if (cursor.moveToFirst()) {
+            do {
                 Proyecto proyecto = new Proyecto();
-                proyecto.setIdProyecto(cursor.getInt( cursor.getColumnIndex(Proyecto.KEY_idProyecto)));
-                proyecto.setNombre(cursor.getString( cursor.getColumnIndex(Proyecto.KEY_nombre)));
-                proyecto.setDescripcion(cursor.getString( cursor.getColumnIndex(Proyecto.KEY_descripcion)));
-                proyecto.setDuracionSprint(cursor.getInt( cursor.getColumnIndex(Proyecto.KEY_duracionSprint)));
+                proyecto.setIdProyecto(cursor.getInt(cursor.getColumnIndex(Proyecto.KEY_idProyecto)));
+                proyecto.setNombre(cursor.getString(cursor.getColumnIndex(Proyecto.KEY_nombre)));
+                proyecto.setDescripcion(cursor.getString(cursor.getColumnIndex(Proyecto.KEY_descripcion)));
+                proyecto.setDuracionSprint(cursor.getInt(cursor.getColumnIndex(Proyecto.KEY_duracionSprint)));
                 proyectos.add(proyecto);
             } while (cursor.moveToNext());
         }

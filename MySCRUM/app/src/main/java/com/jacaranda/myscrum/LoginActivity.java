@@ -31,9 +31,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.ListIterator;
 
 import static android.Manifest.permission.READ_CONTACTS;
 
@@ -45,6 +43,7 @@ import com.jacaranda.myscrum.data.model.UsuarioXProyecto;
 import com.jacaranda.myscrum.data.repo.ProyectoRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioXProyectoRepo;
+import com.jacaranda.myscrum.sysadmin.SysAdminActivity;
 
 /**
  * A login screen that offers login via email/password.
@@ -229,9 +228,6 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             // perform the user login attempt.
             showProgress(true);
             mAuthTask = new UserLoginTask(email, password);
-
-            /* TODO: creo que aquí es donde se puede validar el rol */
-
             mAuthTask.execute((Void) null);
         }
     }
@@ -390,14 +386,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 finish();
                 Log.d("main", "Login succesful for " + mEmail);
                 Intent myIntent = new Intent();
-                if (accountType.equals("SYSADMIN")) {
-                    myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
-                }
+                    if (accountType.equals("SYSADMIN")) {
+                        myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
+                    }
                 /** Rest of if clauses here**/
                 if (myIntent != null) {
-                    Log.d("main", "Before startActivity");
-                    myIntent.putExtra("EMAIL", mEmail);
-                    myIntent.putExtra("ACCOUNTTYPE", accountType);
+                    Global global = new Global();
+                    global.email = mEmail;
+                    global.accountType = accountType;
+                    /*myIntent.putExtra("EMAIL", mEmail);
+                    myIntent.putExtra("ACCOUNTTYPE", accountType);*/
                     startActivity(myIntent);
                 }
             } else {

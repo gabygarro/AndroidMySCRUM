@@ -19,12 +19,23 @@
             android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SysAdminActivity"
+        <activity
+            android:name=".sysadmin.SysAdminActivity"
             android:label="@string/title_activity_sys_admin"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".sysadmin.NewProjectActivity"
+            android:label="@string/title_activity_new_project"
+            android:parentActivityName=".sysadmin.SysAdminActivity"
             android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.sysadmin.SysAdminActivity" />
         </activity>
     </application>
+
 </manifest>

@@ -1,4 +1,4 @@
-package com.jacaranda.myscrum.data;
+package com.jacaranda.myscrum;
 
 import android.content.Context;
 import android.os.Bundle;
