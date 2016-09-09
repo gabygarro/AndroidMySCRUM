@@ -24,6 +24,7 @@ import java.util.ListIterator;
  * Created by Gaby on 04/09/2016.
  */
 public class ProjectFragment extends Fragment {
+    private Global global;
     private LinkedList<Proyecto> proyectos;
     private ProjectAdapter mProjectAdapter;
 
@@ -50,6 +51,7 @@ public class ProjectFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         Log.d("main", "ProjectFragment.onCreate");
         super.onCreate(savedInstanceState);
+        global = new Global();
     }
 
     public class ProjectAdapter extends ArrayAdapter<Proyecto> {
