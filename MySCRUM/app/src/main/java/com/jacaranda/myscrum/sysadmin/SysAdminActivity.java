@@ -32,6 +32,7 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
         Log.d("main", "SysAdminActivity.onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sys_admin);
+        global = new Global();
 
         // Create toolbar
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -46,7 +47,7 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
             email = extras.getString("EMAIL");
             accountType = extras.getString("ACCOUNTTYPE");
         }*/
-        global = new Global();
+
         if (savedInstanceState == null) {
             // Get projects associated to user
             ProyectoRepo proyectoRepo = new ProyectoRepo();

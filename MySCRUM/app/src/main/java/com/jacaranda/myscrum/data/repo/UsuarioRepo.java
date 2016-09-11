@@ -54,11 +54,19 @@ public class UsuarioRepo {
     }
 
     public LinkedList<Usuario> getUsuarios(){
+        return getUsuariosQuery("SELECT * FROM " + Usuario.TABLE);
+    }
+
+    public LinkedList<Usuario> getUsuariosMinusSYSADMIN(){
+        return getUsuariosQuery("SELECT * FROM " + Usuario.TABLE + " WHERE " +
+                Usuario.KEY_rol + " != \"SYSADMIN\"" );
+    }
+    private LinkedList<Usuario> getUsuariosQuery(String query){
         LinkedList<Usuario> listaUsuarios = new LinkedList<>();
 
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
 
-        String selectQuery = "SELECT * FROM " + Usuario.TABLE;
+        String selectQuery = query;
         Log.d("db", selectQuery);
         Cursor cursor = db.rawQuery(selectQuery, null);
         //Loop through cursor
@@ -93,15 +101,4 @@ public class UsuarioRepo {
         }
         return null;
     }
-
-    /*UsuarioRepo usuarioRepo = new UsuarioRepo();
-            LinkedList<Usuario> listaUsuarios = usuarioRepo.getUsuarios();
-            ListIterator<Usuario> listIterator = listaUsuarios.listIterator();
-            while(listIterator.hasNext()) {
-                Usuario usuario = listIterator.next();
-                if (usuario.getCorreo().equals(mEmail)) {
-                    accountType = usuario.getRol();
-                    return usuario.getContrasena().equals(mPassword);
-                }
-            }*/
 }

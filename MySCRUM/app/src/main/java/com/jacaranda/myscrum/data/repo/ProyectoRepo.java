@@ -67,8 +67,8 @@ public class ProyectoRepo {
             ;*/
             selectQuery = "SELECT idProyecto, nombre, descripcion, duracionSprint " +
                     "FROM Proyecto, Usuario, UsuarioXProyecto " +
-                    "WHERE Usuario.correo = " + correo +
-                    " AND Usuario.idUsuario = UsuarioXProyecto.Usuario_idUsuario" +
+                    "WHERE Usuario.correo = \"" + correo +
+                    "\" AND Usuario.idUsuario = UsuarioXProyecto.Usuario_idUsuario" +
                     " AND UsuarioXProyecto.Proyecto_idProyecto = Proyecto.idProyecto";
         }
 

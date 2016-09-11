@@ -51,7 +51,7 @@ public class NewProjectActivity extends AppCompatActivity {
         // Set checkboxes
         usuariosSeleccionados = new LinkedList<>();
         UsuarioRepo usuarioRepo = new UsuarioRepo();
-        usuarios = usuarioRepo.getUsuarios();
+        usuarios = usuarioRepo.getUsuariosMinusSYSADMIN();
         LinearLayout miembros = (LinearLayout) findViewById(R.id.miembros);
         ListIterator<Usuario> listIterator = usuarios.listIterator();
         while(listIterator.hasNext()) {

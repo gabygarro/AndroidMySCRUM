@@ -45,6 +45,33 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jacaranda.myscrum.sysadmin.SysAdminActivity" />
         </activity>
+        <activity
+            android:name=".productowner.ProductOwnerActivity"
+            android:label="@string/title_activity_product_owner"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".data.developer.DeveloperActivity"
+            android:label="@string/title_activity_developer"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.LoginActivity" />
+        </activity>
+        <activity
+            android:name=".data.scrummaster.ScrumMasterActivity"
+            android:label="@string/title_activity_scrum_master"
+            android:parentActivityName=".LoginActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.LoginActivity" />
+        </activity>
     </application>
 
 </manifest>

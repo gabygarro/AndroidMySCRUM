@@ -37,12 +37,15 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 //import com.jacaranda.myscrum.data.DatabaseManager;
 //import com.jacaranda.myscrum.data.DBHelper;
+import com.jacaranda.myscrum.data.developer.DeveloperActivity;
 import com.jacaranda.myscrum.data.model.Proyecto;
 import com.jacaranda.myscrum.data.model.Usuario;
 import com.jacaranda.myscrum.data.model.UsuarioXProyecto;
 import com.jacaranda.myscrum.data.repo.ProyectoRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioXProyectoRepo;
+import com.jacaranda.myscrum.data.scrummaster.ScrumMasterActivity;
+import com.jacaranda.myscrum.productowner.ProductOwnerActivity;
 import com.jacaranda.myscrum.sysadmin.SysAdminActivity;
 
 /**
@@ -97,6 +100,12 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         UsuarioXProyecto usuarioXProyecto = new UsuarioXProyecto();
         usuarioXProyecto.setProyecto_idProyecto(idProyecto);
         usuarioXProyecto.setUsuario_idUsuario(2);
+        usuarioXProyectoRepo.insert(usuarioXProyecto);
+
+        usuarioXProyecto.setUsuario_idUsuario(3);
+        usuarioXProyectoRepo.insert(usuarioXProyecto);
+
+        usuarioXProyecto.setUsuario_idUsuario(4);
         usuarioXProyectoRepo.insert(usuarioXProyecto);
     }
 
@@ -385,9 +394,18 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
                 finish();
                 Log.d("main", "Login succesful for " + mEmail);
                 Intent myIntent = new Intent();
-                    if (accountType.equals("SYSADMIN")) {
-                        myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
-                    }
+                if (accountType.equals("SYSADMIN")) {
+                    myIntent = new Intent(LoginActivity.this,SysAdminActivity.class);
+                }
+                else if(accountType.equals("PRODUCTOWNER")){
+                    myIntent = new Intent(LoginActivity.this, ProductOwnerActivity.class);
+                }
+                else if(accountType.equals("SCRUMMASTER")){
+                    myIntent = new Intent(LoginActivity.this, ScrumMasterActivity.class);
+                }
+                else if(accountType.equals("DEVELOPER")){
+                    myIntent = new Intent(LoginActivity.this, DeveloperActivity.class);
+                }
                 /** Rest of if clauses here**/
                 if (myIntent != null) {
                     Global global = new Global();
