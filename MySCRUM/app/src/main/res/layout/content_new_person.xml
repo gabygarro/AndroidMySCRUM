@@ -53,7 +53,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:spinnerMode="dropdown"
-                style="@style/Base.Widget.AppCompat.Spinner.Underlined"/>
+                style="@style/Base.Widget.AppCompat.Spinner.Underlined"
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 

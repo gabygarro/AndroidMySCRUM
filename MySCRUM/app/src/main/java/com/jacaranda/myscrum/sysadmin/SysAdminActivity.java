@@ -23,7 +23,7 @@ import java.util.LinkedList;
 public class SysAdminActivity extends AppCompatActivity implements View.OnClickListener {
     private Global global;
     private Boolean isFabOpen = false;
-    private FloatingActionButton fab, fab1, fab2, fab3;
+    private FloatingActionButton fab, fab1, fab2;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
     LinkedList<Proyecto> proyectos;
 
@@ -61,7 +61,6 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
         fab = (FloatingActionButton) findViewById(R.id.fab);
         fab1 = (FloatingActionButton) findViewById(R.id.fab1);
         fab2 = (FloatingActionButton) findViewById(R.id.fab2);
-        fab3 = (FloatingActionButton) findViewById(R.id.fab3);
 
         // Get animations
         fab_open = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fab_open);
@@ -86,7 +85,6 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(myIntent);
             }
         });
-        fab3.setOnClickListener(this);
     }
 
     @Override
@@ -102,9 +100,6 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
             case R.id.fab2:
                 Log.d("main", "Fab 2");
                 break;
-            case R.id.fab3:
-                Log.d("main", "Fab3");
-                break;
         }
     }
 
@@ -114,10 +109,8 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
             fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorAccent)));
             fab1.startAnimation(fab_close);
             fab2.startAnimation(fab_close);
-            fab3.startAnimation(fab_close);
             fab1.setClickable(false);
             fab2.setClickable(false);
-            fab3.setClickable(false);
             isFabOpen = false;
             Log.d("main", "close");
 
@@ -126,10 +119,8 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
             fab.setBackgroundTintList(ColorStateList.valueOf(ContextCompat.getColor(this, R.color.colorGray)));
             fab1.startAnimation(fab_open);
             fab2.startAnimation(fab_open);
-            fab3.startAnimation(fab_open);
             fab1.setClickable(true);
             fab2.setClickable(true);
-            fab3.setClickable(true);
             isFabOpen = true;
             Log.d("main","open");
         }

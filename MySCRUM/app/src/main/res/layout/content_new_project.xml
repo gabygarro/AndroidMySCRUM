@@ -47,6 +47,24 @@
 
             </android.support.design.widget.TextInputLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Miembros"
+                android:id="@+id/miembrosLabel"
+                android:layout_gravity="left|center" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:id="@+id/miembros">
+
+            </LinearLayout>
+
+
         </LinearLayout>
     </ScrollView>
 
