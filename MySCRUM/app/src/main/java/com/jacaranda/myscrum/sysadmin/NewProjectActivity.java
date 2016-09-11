@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 
+import com.jacaranda.myscrum.Global;
 import com.jacaranda.myscrum.R;
 import com.jacaranda.myscrum.data.model.Proyecto;
 import com.jacaranda.myscrum.data.repo.ProyectoRepo;
@@ -20,11 +21,13 @@ public class NewProjectActivity extends AppCompatActivity {
     private String descripcionProyecto;
     private AutoCompleteTextView mNombreProyecto;
     private AutoCompleteTextView mDescripcionProyecto;
+    private Global global;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_project);
+        global = new Global();
 
         // Toolbar operations
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);

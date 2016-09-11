@@ -26,10 +26,19 @@
         <activity
             android:name=".sysadmin.SysAdminActivity"
             android:label="@string/title_activity_sys_admin"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".sysadmin.NewProjectActivity"
             android:label="@string/title_activity_new_project"
+            android:parentActivityName=".sysadmin.SysAdminActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.sysadmin.SysAdminActivity" />
+        </activity>
+        <activity
+            android:name=".sysadmin.NewPersonActivity"
+            android:label="@string/title_activity_new_person"
             android:parentActivityName=".sysadmin.SysAdminActivity"
             android:theme="@style/AppTheme.NoActionBar">
             <meta-data

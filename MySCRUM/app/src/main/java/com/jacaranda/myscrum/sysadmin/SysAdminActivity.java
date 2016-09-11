@@ -25,6 +25,7 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
     private Boolean isFabOpen = false;
     private FloatingActionButton fab, fab1, fab2, fab3;
     private Animation fab_open, fab_close, rotate_forward, rotate_backward;
+    LinkedList<Proyecto> proyectos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
         if (savedInstanceState == null) {
             // Get projects associated to user
             ProyectoRepo proyectoRepo = new ProyectoRepo();
-            LinkedList<Proyecto> proyectos = proyectoRepo.getProyectos(global.email, global.accountType);
+            proyectos = proyectoRepo.getProyectos(global.email, global.accountType);
             ProjectFragment projectFragment = new ProjectFragment();
             projectFragment.sendList(proyectos);
             getSupportFragmentManager().beginTransaction()
@@ -78,10 +79,14 @@ public class SysAdminActivity extends AppCompatActivity implements View.OnClickL
                 startActivity(myIntent);
             }
         });
-        fab2.setOnClickListener(this);
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(SysAdminActivity.this,NewPersonActivity.class);
+                startActivity(myIntent);
+            }
+        });
         fab3.setOnClickListener(this);
-
-
     }
 
     @Override

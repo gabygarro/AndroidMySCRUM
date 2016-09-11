@@ -41,6 +41,8 @@ public class UsuarioRepo {
 
         // Inserting Row
         rowID = (int) db.insert(Usuario.TABLE, null, values);
+        Log.d("db", "Inserted user = " + usuario.getCorreo() + ", rol = " + usuario.getRol()
+                + ", id = " + rowID);
         DatabaseManager.getInstance().closeDatabase();
         return rowID;
     }

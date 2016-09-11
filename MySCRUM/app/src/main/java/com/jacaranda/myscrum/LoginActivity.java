@@ -79,8 +79,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             usuario.setCorreo(pieces[0]);
             usuario.setContrasena(pieces[1]);
             usuario.setRol(pieces[2]);
-            Log.d("db", "Insert user = " + usuario.getCorreo() + ", rol = " + usuario.getRol()
-                    + ", id = " + usuarioRepo.insert(usuario));
+            usuarioRepo.insert(usuario);
         }
 
         //Insertar proyectos y personas asociadas

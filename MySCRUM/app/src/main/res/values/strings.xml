@@ -13,4 +13,5 @@
     <string name="permission_rationale">"Se necesitan permisos."</string>
     <string name="title_activity_sys_admin">Proyectos</string>
     <string name="title_activity_new_project">Nuevo proyecto</string>
+    <string name="title_activity_new_person">Nuevo usuario</string>
 </resources>
