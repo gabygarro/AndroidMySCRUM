@@ -1,18 +1,22 @@
 package com.jacaranda.myscrum;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.jacaranda.myscrum.R;
 import com.jacaranda.myscrum.data.model.Proyecto;
+import com.jacaranda.myscrum.productowner.POProjectActivity;
+import com.jacaranda.myscrum.productowner.ProductOwnerActivity;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -27,6 +31,9 @@ public class ProjectFragment extends Fragment {
     private Global global;
     private LinkedList<Proyecto> proyectos;
     private ProjectAdapter mProjectAdapter;
+    private ListView listView;
+    private Context context;
+    private Class<?> goal;
 
     public ProjectFragment(){}
 
@@ -35,15 +42,32 @@ public class ProjectFragment extends Fragment {
         //mProjectAdapter = new ProjectAdapter(getActivity(), proyectos);
     }
 
+    public void sendContext(Context context, Class<?> goal) {
+        this.context = context;
+        this.goal = goal;
+    }
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         mProjectAdapter = new ProjectAdapter(getActivity(), proyectos);
         View rootView = inflater.inflate(R.layout.fragment_main, container, false);
 
         // Get a reference to the ListView, and attach this adapter to it.
-        ListView listView = (ListView) rootView.findViewById(R.id.listview_project);
+        listView = (ListView) rootView.findViewById(R.id.listview_project);
         listView.setAdapter(mProjectAdapter);
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position,
+                                    long id) {
+                int idProyecto = view.getId();
+                Log.d("main", "Id proyecto = " + idProyecto);
+                if(context != null || goal != null) {
+                    Intent myIntent = new Intent(context, goal);
+                    myIntent.putExtra("idProyecto", idProyecto);
+                    startActivity(myIntent);
+                }
+            }
+        });
 
         return rootView;
     }
@@ -52,6 +76,10 @@ public class ProjectFragment extends Fragment {
         Log.d("main", "ProjectFragment.onCreate");
         super.onCreate(savedInstanceState);
         global = new Global();
+    }
+
+    public ListView getListView(){
+        return listView;
     }
 
     public class ProjectAdapter extends ArrayAdapter<Proyecto> {
@@ -75,6 +103,7 @@ public class ProjectFragment extends Fragment {
             nombreProyecto.setText(proyecto.getNombre());
             //Log.d("main", "Agregado proyecto " + proyecto.getNombre());
             descripcionProyecto.setText(proyecto.getDescripcion());
+            convertView.setId(proyecto.getIdProyecto());
             // Return the completed view to render on screen
             return convertView;
         }

@@ -17,4 +17,6 @@
     <string name="title_activity_product_owner">Proyectos</string>
     <string name="title_activity_developer">Proyectos</string>
     <string name="title_activity_scrum_master">Proyectos</string>
+    <string name="title_activity_poproject">Proyecto</string>
+    <string name="title_activity_new_story">Nuevo user story</string>
 </resources>

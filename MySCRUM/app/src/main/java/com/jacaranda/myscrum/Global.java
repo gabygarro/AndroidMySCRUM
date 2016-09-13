@@ -6,4 +6,5 @@ package com.jacaranda.myscrum;
 public class Global {
     public static String email;
     public static String accountType;
+    public static int idProyecto;
 }

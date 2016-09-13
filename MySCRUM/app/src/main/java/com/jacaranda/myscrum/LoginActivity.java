@@ -39,9 +39,11 @@ import static android.Manifest.permission.READ_CONTACTS;
 //import com.jacaranda.myscrum.data.DBHelper;
 import com.jacaranda.myscrum.data.developer.DeveloperActivity;
 import com.jacaranda.myscrum.data.model.Proyecto;
+import com.jacaranda.myscrum.data.model.Story;
 import com.jacaranda.myscrum.data.model.Usuario;
 import com.jacaranda.myscrum.data.model.UsuarioXProyecto;
 import com.jacaranda.myscrum.data.repo.ProyectoRepo;
+import com.jacaranda.myscrum.data.repo.StoryRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioXProyectoRepo;
 import com.jacaranda.myscrum.data.scrummaster.ScrumMasterActivity;
@@ -89,8 +91,8 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         ProyectoRepo proyectoRepo = new ProyectoRepo();
         proyectoRepo.delete();
         Proyecto proyecto = new Proyecto();
-        proyecto.setNombre("Fry Defender");
-        proyecto.setDescripcion("McDonald's");
+        proyecto.setNombre("BNMóvil");
+        proyecto.setDescripcion("Aplicación de dispositivos móviles para el Banco Nacional.");
         proyecto.setDuracionSprint(3);
         int idProyecto = proyectoRepo.insert(proyecto);
         Log.d("db", "Insert proyecto " + idProyecto);
@@ -107,6 +109,21 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
 
         usuarioXProyecto.setUsuario_idUsuario(4);
         usuarioXProyectoRepo.insert(usuarioXProyecto);
+
+        //Insertar user stories
+        StoryRepo storyRepo = new StoryRepo();
+        storyRepo.delete();
+        Story story = new Story();
+        story.setProyecto_idProyecto(idProyecto);
+        story.setTexto("Debo poder registrarme en la aplicación.");
+        story.setPrioridad(1);
+        int idStory = storyRepo.insert(story);
+        Log.d("db", "Inserted story = " + idStory + " to project = " + idProyecto);
+
+        story.setTexto("Debo poder iniciar sesión con las credenciales de Servibanca.");
+        story.setPrioridad(2);
+        idStory = storyRepo.insert(story);
+        Log.d("db", "Inserted story = " + idStory + " to project = " + idProyecto);
     }
 
     @Override

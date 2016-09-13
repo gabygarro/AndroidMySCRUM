@@ -96,4 +96,31 @@ public class ProyectoRepo {
         DatabaseManager.getInstance().closeDatabase();
         return proyectos;
     }
+
+    public Proyecto getProyecto(int idProyecto){
+        Proyecto proyecto = new Proyecto();
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+        String selectQuery = "SELECT * FROM " + Proyecto.TABLE + " WHERE " +
+                Proyecto.KEY_idProyecto + " = " + idProyecto;
+
+        Log.d("db", selectQuery);
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(selectQuery, null);
+        } catch (Exception e) {
+            Log.d("main", e.toString());
+        }
+
+        if (cursor.moveToFirst()) {
+            proyecto.setIdProyecto(cursor.getInt(cursor.getColumnIndex(Proyecto.KEY_idProyecto)));
+            proyecto.setNombre(cursor.getString(cursor.getColumnIndex(Proyecto.KEY_nombre)));
+            proyecto.setDescripcion(cursor.getString(cursor.getColumnIndex(Proyecto.KEY_descripcion)));
+            proyecto.setDuracionSprint(cursor.getInt(cursor.getColumnIndex(Proyecto.KEY_duracionSprint)));
+        }
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+
+        return proyecto;
+    }
 }

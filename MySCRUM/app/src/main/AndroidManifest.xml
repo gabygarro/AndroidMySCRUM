@@ -72,6 +72,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jacaranda.myscrum.LoginActivity" />
         </activity>
+        <activity
+            android:name=".productowner.POProjectActivity"
+            android:label="@string/title_activity_poproject"
+            android:parentActivityName=".productowner.ProductOwnerActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.productowner.ProductOwnerActivity" />
+        </activity>
+        <activity
+            android:name=".productowner.NewStoryActivity"
+            android:label="@string/title_activity_new_story"
+            android:parentActivityName=".productowner.POProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.productowner.POProjectActivity" />
+        </activity>
     </application>
 
 </manifest>
