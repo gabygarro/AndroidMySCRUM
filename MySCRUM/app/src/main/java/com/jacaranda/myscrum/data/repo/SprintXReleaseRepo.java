@@ -28,7 +28,7 @@ public class SprintXReleaseRepo {
         int rowID;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
-        values.put(SprintXRelease.KEY_idSprintXRelease, sprintXRelease.getIdSprintXRelease());
+        //values.put(SprintXRelease.KEY_idSprintXRelease, sprintXRelease.getIdSprintXRelease());
         values.put(SprintXRelease.KEY_ReleaseXProyecto_idRelease, sprintXRelease.getReleaseXProyecto_idRelease());
         values.put(SprintXRelease.KEY_numSprint, sprintXRelease.getNumSprint());
 

@@ -37,7 +37,14 @@ import static android.Manifest.permission.READ_CONTACTS;
 
 //import com.jacaranda.myscrum.data.DatabaseManager;
 //import com.jacaranda.myscrum.data.DBHelper;
-import com.jacaranda.myscrum.data.developer.DeveloperActivity;
+import com.jacaranda.myscrum.data.model.InStoryXSprint;
+import com.jacaranda.myscrum.data.model.SprintXRelease;
+import com.jacaranda.myscrum.data.repo.InStoryXSprintRepo;
+import com.jacaranda.myscrum.data.repo.OutStoryXSprintRepo;
+import com.jacaranda.myscrum.data.repo.ReleaseXProyectoRepo;
+import com.jacaranda.myscrum.data.repo.SprintXReleaseRepo;
+import com.jacaranda.myscrum.data.repo.TareaRepo;
+import com.jacaranda.myscrum.developer.DeveloperActivity;
 import com.jacaranda.myscrum.data.model.Proyecto;
 import com.jacaranda.myscrum.data.model.Story;
 import com.jacaranda.myscrum.data.model.Usuario;
@@ -46,7 +53,7 @@ import com.jacaranda.myscrum.data.repo.ProyectoRepo;
 import com.jacaranda.myscrum.data.repo.StoryRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioRepo;
 import com.jacaranda.myscrum.data.repo.UsuarioXProyectoRepo;
-import com.jacaranda.myscrum.data.scrummaster.ScrumMasterActivity;
+import com.jacaranda.myscrum.scrummaster.ScrumMasterActivity;
 import com.jacaranda.myscrum.productowner.ProductOwnerActivity;
 import com.jacaranda.myscrum.sysadmin.SysAdminActivity;
 
@@ -87,13 +94,16 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
             usuarioRepo.insert(usuario);
         }
 
+        ReleaseXProyectoRepo releaseXProyectoRepo = new ReleaseXProyectoRepo();
+        releaseXProyectoRepo.delete();
+
         //Insertar proyectos y personas asociadas
         ProyectoRepo proyectoRepo = new ProyectoRepo();
         proyectoRepo.delete();
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("BNMóvil");
         proyecto.setDescripcion("Aplicación de dispositivos móviles para el Banco Nacional.");
-        proyecto.setDuracionSprint(3);
+        proyecto.setDuracionSprint(5);
         int idProyecto = proyectoRepo.insert(proyecto);
         Log.d("db", "Insert proyecto " + idProyecto);
 
@@ -124,6 +134,19 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         story.setPrioridad(2);
         idStory = storyRepo.insert(story);
         Log.d("db", "Inserted story = " + idStory + " to project = " + idProyecto);
+
+        InStoryXSprintRepo inStoryXSprintRepo = new InStoryXSprintRepo();
+        inStoryXSprintRepo.delete();
+
+        OutStoryXSprintRepo outStoryXSprintRepo = new OutStoryXSprintRepo();
+        outStoryXSprintRepo.delete();
+
+        SprintXReleaseRepo sprintXReleaseRepo = new SprintXReleaseRepo();
+        sprintXReleaseRepo.delete();
+
+        TareaRepo tareaRepo = new TareaRepo();
+        tareaRepo.delete();
+
     }
 
     @Override

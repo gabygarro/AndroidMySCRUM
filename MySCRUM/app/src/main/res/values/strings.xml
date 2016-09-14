@@ -19,4 +19,6 @@
     <string name="title_activity_scrum_master">Proyectos</string>
     <string name="title_activity_poproject">Proyecto</string>
     <string name="title_activity_new_story">Nuevo user story</string>
+    <string name="title_activity_smproject">Proyecto</string>
+    <string name="title_activity_new_sprint">Nuevo sprint</string>
 </resources>

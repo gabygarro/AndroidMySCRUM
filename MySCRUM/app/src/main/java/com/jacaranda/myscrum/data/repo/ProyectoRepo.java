@@ -7,6 +7,7 @@ import android.util.Log;
 
 import com.jacaranda.myscrum.data.DatabaseManager;
 import com.jacaranda.myscrum.data.model.Proyecto;
+import com.jacaranda.myscrum.data.model.ReleaseXProyecto;
 import com.jacaranda.myscrum.data.model.Usuario;
 import com.jacaranda.myscrum.data.model.UsuarioXProyecto;
 
@@ -32,6 +33,7 @@ public class ProyectoRepo {
     }
 
     public int insert(Proyecto proyecto) {
+        //Insert project
         int rowID;
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         ContentValues values = new ContentValues();
@@ -40,8 +42,20 @@ public class ProyectoRepo {
         values.put(Proyecto.KEY_descripcion, proyecto.getDescripcion());
         values.put(Proyecto.KEY_duracionSprint, proyecto.getDuracionSprint());
 
-        // Inserting Row
         rowID = (int) db.insert(Proyecto.TABLE, null, values);
+
+        //Insert releases
+        db = DatabaseManager.getInstance().openDatabase();
+        values = new ContentValues();
+        ReleaseXProyectoRepo releaseXProyectoRepo = new ReleaseXProyectoRepo();
+        for (int i = 1; i <= proyecto.getDuracionSprint(); i++) {
+            ReleaseXProyecto releaseXProyecto = new ReleaseXProyecto();
+            releaseXProyecto.setProyecto_idProyecto(rowID);
+            releaseXProyecto.setDescripcion("");
+            releaseXProyecto.setNumRelease(i);
+            releaseXProyectoRepo.insert(releaseXProyecto);
+        }
+
         DatabaseManager.getInstance().closeDatabase();
         return rowID;
     }

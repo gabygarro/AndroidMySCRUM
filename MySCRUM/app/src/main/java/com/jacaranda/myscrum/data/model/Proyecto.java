@@ -11,7 +11,7 @@ public class Proyecto {
     public static final String KEY_idProyecto = "idProyecto";
     public static final String KEY_nombre = "nombre";
     public static final String KEY_descripcion = "descripcion";
-    public static final String KEY_duracionSprint = "duracionSprint";
+    public static final String KEY_duracionSprint = "duracionSprint"; // Mal nombre, debería de ser numReleases
 
     private int idProyecto;
     private String nombre;
