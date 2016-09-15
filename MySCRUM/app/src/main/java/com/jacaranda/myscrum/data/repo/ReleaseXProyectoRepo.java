@@ -113,4 +113,29 @@ public class ReleaseXProyectoRepo {
 
         return idRelease;
     }
+
+    public int getNumRelease(int idRelease){
+        int numRelease = 1;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT " + ReleaseXProyecto.KEY_numRelease + " FROM " + ReleaseXProyecto.TABLE +
+                " WHERE " + ReleaseXProyecto.KEY_idRelease + " = " + idRelease;
+
+        Log.d("db", selectQuery);
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(selectQuery, null);
+        } catch (Exception e) {
+            Log.d("main", e.toString());
+        }
+
+        //Loop through cursor
+        if (cursor.moveToFirst()) {
+            numRelease = cursor.getInt(cursor.getColumnIndex(releaseXProyecto.KEY_numRelease));
+        }
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+        return numRelease;
+    }
 }

@@ -11,12 +11,20 @@ import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.jacaranda.myscrum.Global;
 import com.jacaranda.myscrum.R;
 import com.jacaranda.myscrum.data.model.Proyecto;
+import com.jacaranda.myscrum.data.model.ReleaseXProyecto;
+import com.jacaranda.myscrum.data.model.SprintXRelease;
 import com.jacaranda.myscrum.data.repo.ProyectoRepo;
+import com.jacaranda.myscrum.data.repo.ReleaseXProyectoRepo;
+import com.jacaranda.myscrum.data.repo.SprintXReleaseRepo;
+
+import java.util.LinkedList;
+import java.util.ListIterator;
 
 public class SMProjectActivity extends AppCompatActivity implements View.OnClickListener {
     private Global global;
@@ -58,6 +66,21 @@ public class SMProjectActivity extends AppCompatActivity implements View.OnClick
         mDescripcionProyecto = (TextView) findViewById(R.id.descripcion_proyecto);
         mNombreProyecto.setText(proyecto.getNombre());
         mDescripcionProyecto.setText(proyecto.getDescripcion());
+
+        // Display sprint information
+        SprintXReleaseRepo sprintXReleaseRepo = new SprintXReleaseRepo();
+        ReleaseXProyectoRepo releaseXProyectoRepo = new ReleaseXProyectoRepo();
+        LinkedList<SprintXRelease> sprints = sprintXReleaseRepo.getSprints(idProyecto);
+        LinearLayout storiesLayout = (LinearLayout) findViewById(R.id.sprints_layout);
+        ListIterator<SprintXRelease> listIterator = sprints.listIterator();
+        while(listIterator.hasNext()) {
+            SprintXRelease sprintXRelease = listIterator.next();
+            final TextView textView = new TextView(this);
+            int numRelease = releaseXProyectoRepo.getNumRelease(sprintXRelease.getReleaseXProyecto_idRelease());
+            textView.setText("Release " + numRelease + " - Sprint " + sprintXRelease.getNumSprint());
+            textView.setId(sprintXRelease.getIdSprintXRelease());
+            storiesLayout.addView(textView);
+        }
 
         // Get fab's objects
         fab = (FloatingActionButton) findViewById(R.id.fab);

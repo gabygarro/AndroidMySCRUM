@@ -103,7 +103,7 @@ public class LoginActivity extends AppCompatActivity implements LoaderCallbacks<
         Proyecto proyecto = new Proyecto();
         proyecto.setNombre("BNMóvil");
         proyecto.setDescripcion("Aplicación de dispositivos móviles para el Banco Nacional.");
-        proyecto.setDuracionSprint(5);
+        proyecto.setDuracionSprint(3);
         int idProyecto = proyectoRepo.insert(proyecto);
         Log.d("db", "Insert proyecto " + idProyecto);
 

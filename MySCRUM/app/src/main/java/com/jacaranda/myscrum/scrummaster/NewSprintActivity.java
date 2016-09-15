@@ -77,13 +77,14 @@ public class NewSprintActivity extends AppCompatActivity {
                 SprintXReleaseRepo sprintXReleaseRepo = new SprintXReleaseRepo();
                 // Obtener los campos desde la interfaz aquí y guardarlos en un objeto proyecto
                 getCamposTexto();
+                // Get idRelease
+                ReleaseXProyectoRepo releaseXProyectoRepo = new ReleaseXProyectoRepo();
+                idReleaseSeleccionado = releaseXProyectoRepo.getIdRelease(idProyecto, release);
                 // Insertar
                 for (int i = 1; i <= numSprints; i++) {
                     SprintXRelease sprintXRelease = new SprintXRelease();
                     sprintXRelease.setNumSprint(i);
-                    ReleaseXProyectoRepo releaseXProyectoRepo = new ReleaseXProyectoRepo();
-                    int releaseNumber = releaseXProyectoRepo.getIdRelease(idProyecto, i);
-                    sprintXRelease.setReleaseXProyecto_idRelease(releaseNumber);
+                    sprintXRelease.setReleaseXProyecto_idRelease(idReleaseSeleccionado);
                     // Crear esa línea en la bd
                     int idSprint = sprintXReleaseRepo.insert(sprintXRelease);
                 }

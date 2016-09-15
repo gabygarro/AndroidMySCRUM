@@ -35,6 +35,21 @@
             android:text="Descripción"
             android:id="@+id/descripcion_proyecto" />
 
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Sprints"
+            android:id="@+id/textView2" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/sprints_layout"
+            ></LinearLayout>
+
+
     </LinearLayout>
 
 </RelativeLayout>
