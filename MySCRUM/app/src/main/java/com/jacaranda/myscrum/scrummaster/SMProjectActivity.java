@@ -106,8 +106,9 @@ public class SMProjectActivity extends AppCompatActivity implements View.OnClick
         fab2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                /*Intent myIntent = new Intent(SysAdminActivity.this,NewPersonActivity.class);
-                startActivity(myIntent);*/
+                Intent myIntent = new Intent(SMProjectActivity.this,InOutUserStoryActivity.class);
+                myIntent.putExtra("idProyecto", idProyecto);
+                startActivity(myIntent);
             }
         });
     }

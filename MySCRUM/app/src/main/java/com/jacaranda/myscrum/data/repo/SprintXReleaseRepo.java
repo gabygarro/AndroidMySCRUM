@@ -80,4 +80,32 @@ public class SprintXReleaseRepo {
         DatabaseManager.getInstance().closeDatabase();
         return sprints;
     }
+
+    public int getIdSprint(int idProyecto, int numSprint, int numRelease) {
+        int idSprint = 0;
+        SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
+
+        String selectQuery = "SELECT " + SprintXRelease.KEY_idSprintXRelease + " FROM " + SprintXRelease.TABLE +
+                ", " + ReleaseXProyecto.TABLE + " WHERE " + SprintXRelease.KEY_numSprint + " = " + numSprint +
+                " AND " + ReleaseXProyecto.KEY_idRelease + " = " + SprintXRelease.KEY_ReleaseXProyecto_idRelease +
+                " AND " + ReleaseXProyecto.KEY_numRelease + " = " + numRelease +
+                " AND " + ReleaseXProyecto.KEY_Proyecto_idProyecto + " = " + idProyecto;
+
+        Log.d("db", selectQuery);
+
+        Cursor cursor = null;
+        try {
+            cursor = db.rawQuery(selectQuery, null);
+        } catch (Exception e) {
+            Log.d("main", e.toString());
+        }
+
+        //Loop through cursor
+        if (cursor.moveToFirst()) {
+            idSprint = cursor.getInt(cursor.getColumnIndex(SprintXRelease.KEY_idSprintXRelease));
+        }
+        cursor.close();
+        DatabaseManager.getInstance().closeDatabase();
+        return idSprint;
+    }
 }

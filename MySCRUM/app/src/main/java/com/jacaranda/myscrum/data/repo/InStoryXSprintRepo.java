@@ -6,6 +6,9 @@ import android.database.sqlite.SQLiteDatabase;
 import com.jacaranda.myscrum.data.DatabaseManager;
 import com.jacaranda.myscrum.data.model.InStoryXSprint;
 
+import java.util.LinkedList;
+import java.util.ListIterator;
+
 /**
  * Created by Gaby on 03/09/2016.
  */
@@ -42,5 +45,16 @@ public class InStoryXSprintRepo {
         SQLiteDatabase db = DatabaseManager.getInstance().openDatabase();
         db.delete(InStoryXSprint.TABLE,null,null);
         DatabaseManager.getInstance().closeDatabase();
+    }
+
+    public void insertLista(LinkedList<Integer> lista, int idSprint) {
+        ListIterator<Integer> listIterator = lista.listIterator();
+        inStoryXSprint = new InStoryXSprint();
+        inStoryXSprint.setSprintXRelease_idSprintXRelease(idSprint);
+        while(listIterator.hasNext()) {
+            int idStory = listIterator.next();
+            inStoryXSprint.setStory_idStory(idStory);
+            insert(inStoryXSprint);
+        }
     }
 }

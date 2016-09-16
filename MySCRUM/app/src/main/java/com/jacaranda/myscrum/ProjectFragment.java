@@ -64,6 +64,7 @@ public class ProjectFragment extends Fragment {
                 if(context != null || goal != null) {
                     Intent myIntent = new Intent(context, goal);
                     myIntent.putExtra("idProyecto", idProyecto);
+                    global.idProyecto = idProyecto;
                     startActivity(myIntent);
                 }
             }

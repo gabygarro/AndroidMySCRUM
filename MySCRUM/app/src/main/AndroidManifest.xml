@@ -108,6 +108,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".scrummaster.SMProjectActivity" />
         </activity>
+        <activity
+            android:name=".scrummaster.InOutUserStoryActivity"
+            android:label="@string/title_activity_in_out_user_story"
+            android:parentActivityName=".scrummaster.SMProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.scrummaster.SMProjectActivity" />
+        </activity>
     </application>
 
 </manifest>

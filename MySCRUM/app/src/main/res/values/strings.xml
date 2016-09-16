@@ -21,4 +21,5 @@
     <string name="title_activity_new_story">Nuevo user story</string>
     <string name="title_activity_smproject">Proyecto</string>
     <string name="title_activity_new_sprint">Nuevo sprint</string>
+    <string name="title_activity_in_out_user_story">Stories por Sprint</string>
 </resources>
