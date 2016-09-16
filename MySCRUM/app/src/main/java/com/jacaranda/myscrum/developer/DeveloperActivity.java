@@ -34,6 +34,7 @@ public class DeveloperActivity extends AppCompatActivity {
             ProyectoRepo proyectoRepo = new ProyectoRepo();
             proyectos = proyectoRepo.getProyectos(global.email, global.accountType);
             ProjectFragment projectFragment = new ProjectFragment();
+            projectFragment.sendContext(DeveloperActivity.this, DProjectActivity.class);
             projectFragment.sendList(proyectos);
             getSupportFragmentManager().beginTransaction()
                     .add(R.id.containerD, projectFragment)

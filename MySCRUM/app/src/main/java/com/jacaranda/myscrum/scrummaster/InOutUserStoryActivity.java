@@ -146,17 +146,10 @@ public class InOutUserStoryActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
-
-
     }
 
     private void getCamposTexto() {
         // Obtener los objetos de texto
-        //mRelease = (Spinner) findViewById(R.id.release);
-        //mNumSprints = (EditText) findViewById(R.id.numSprints);
-
-        // Obtener el texto de los campos al momento de guardar
-        //numSprints = Integer.parseInt(.getText().toString());
         String sprintSeleccionado = mSprintSpinner.getSelectedItem().toString();
         String[] pieces = sprintSeleccionado.split(" - ");
         SprintXReleaseRepo sprintXReleaseRepo = new SprintXReleaseRepo();

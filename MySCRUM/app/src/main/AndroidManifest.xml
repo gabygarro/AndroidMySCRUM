@@ -117,6 +117,24 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.jacaranda.myscrum.scrummaster.SMProjectActivity" />
         </activity>
+        <activity
+            android:name=".developer.DProjectActivity"
+            android:label="@string/title_activity_dproject"
+            android:parentActivityName=".developer.DeveloperActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.developer.DeveloperActivity" />
+        </activity>
+        <activity
+            android:name=".developer.NewTaskActivity"
+            android:label="@string/title_activity_new_task"
+            android:parentActivityName=".developer.DProjectActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.jacaranda.myscrum.developer.DProjectActivity" />
+        </activity>
     </application>
 
 </manifest>
